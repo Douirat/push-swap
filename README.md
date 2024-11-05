@@ -18,15 +18,18 @@
 
 ## Getting Started
 
+
 ### Prerequisites
-List any prerequisites.
+**1.** Check if go is installed, run: go vesion.
+**2.** Check if Git is installed, run: git --version.
 
 ### Installation
-Step-by-step instructions.
-
+**1.** Clone the repository, run: git clone https://github.com/Douirat/push-swap.git.
+**2.** Navigate to repository: cd ./push-swap.
 ## Usage
-How to use the project.
-
+**1.** Compile the application using the build script command:: ./build.sh.
+**2.** Run the application: ./executable either ./push-swap or ./checker.
+**3.** (Optional) Install Dependencies:
 ## Contributing
 Guidelines for contributing.
 
