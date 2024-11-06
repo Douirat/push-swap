@@ -1,18 +1,28 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"os"
-
-	outils "github.com/Douirat/push-swap/logic/outils"
+	"strings"
+	// outils "github.com/Douirat/push-swap/logic/outils"
 )
 
 func main() {
-	args := os.Args[1:]
-	fmt.Println(args)
-	slc := outils.SplitInput(args[0])
-	if len(slc) == 0 {
-		fmt.Println("Not enough arguments...")
+	args := os.Args
+	// Create a scanner to read from stdin
+	scanner := bufio.NewScanner(os.Stdin)
+	flags := 
+	// Continuously read lines from stdin
+	for scanner.Scan() {
+		// Print the received line from stdin
+		fmt.Println("Received input:", scanner.Text())
+
 	}
-	fmt.Println(len(slc))
+	if len(args) == 0 {
+		fmt.Println("Not enough arguments...")
+		return
+	}
+	// slc := outils.SplitInput(args[0])
+	fmt.Println(args)
 }
