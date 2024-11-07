@@ -3,21 +3,20 @@ package outils
 import (
 	"strconv"
 	"strings"
+	p "github.com/Douirat/push-swap/logic/push-swap"
 )
 
 // Split the input argument into a slice of strings:
-func SplitInput(input string) []int {
+func SplitInput(stack *p.Stacks, input string)  {
 	slc := strings.Split(input, " ")
-	ints := []int{}
 	if len(slc) == 0 {
-		return nil
+		return
 	}
 	for _, v := range slc {
 		dig, err := strconv.Atoi(v)
 		if err != nil {
-			return nil
+			return
 		}
-		ints = append(ints, dig)
+		stack.StackA = append(stack.StackA, dig)
 	}
-	return ints
 }
