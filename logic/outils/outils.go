@@ -12,8 +12,8 @@ func SplitInput(stack *p.Stacks, input string)  {
 	if len(slc) == 0 {
 		return
 	}
-	for _, v := range slc {
-		dig, err := strconv.Atoi(v)
+	for i:=len(slc)-1; i>=0; i--{
+		dig, err := strconv.Atoi(slc[i])
 		if err != nil {
 			return
 		}
