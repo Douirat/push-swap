@@ -67,7 +67,9 @@ func (stacks *Stacks) RRA() {
 	temp := make([]int, len(stacks.StackA))
 	copy(temp, stacks.StackA)
 	for i := len(stacks.StackA) - 1; i >= 0; i-- {
-		stacks.StackA[len(stacks.StackA)-i-1] = temp[i]
+		ind := (i - 1) % (len(stacks.StackB))
+		fmt.Println("%d", ind)
+		stacks.StackA[ind] = temp[i]
 	}
 }
 
@@ -75,10 +77,14 @@ func (stacks *Stacks) RRA() {
 func (stacks *Stacks) RRB() {
 	temp := make([]int, len(stacks.StackB))
 	copy(temp, stacks.StackB)
-	for i := len(stacks.StackB) - 1; i >= 0; i-- {
-		stacks.StackB[len(stacks.StackB)-i-1] = temp[i]
+
+	for i := 0; i < len(stacks.StackB); i++ {
+		// Calculate the new index with wrap-around
+		ind := (i - 1 + len(stacks.StackB)) % len(stacks.StackB)
+		stacks.StackB[ind] = temp[i]
 	}
 }
+
 
 // ra rotate stack a (shift up all elements of stack a by 1, the first element becomes the last one)
 func (stacks *Stacks) RA() {
@@ -103,8 +109,8 @@ func (stacks *Stacks) RB() {
 
 // rrr execute rra and rrb:
 func (stacks *Stacks) RRR() {
-	stacks.RRA()
 	stacks.RRB()
+	stacks.RRA()
 }
 
 // Sorting application:
@@ -112,13 +118,7 @@ func (stacks *Stacks) Sort() {
 	stacks.PB()
 	stacks.PB()
 	stacks.PB()
-	stacks.SA()
-	stacks.RRA()
-	// stacks.PA()
-	// stacks.SA()
-	// stacks.SB()
-	// stacks.SS()
-	// stacks.RRA()
-	// stacks.RRR()
-	// stacks.RB()
+	stacks.PB()
+	stacks.PB()
+	stacks.PB()
 }
