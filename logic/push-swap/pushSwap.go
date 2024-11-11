@@ -67,8 +67,7 @@ func (stacks *Stacks) RRA() {
 	temp := make([]int, len(stacks.StackA))
 	copy(temp, stacks.StackA)
 	for i := len(stacks.StackA) - 1; i >= 0; i-- {
-		ind := (i - 1) % (len(stacks.StackB))
-		fmt.Println("%d", ind)
+		ind := (i - 1 + len(stacks.StackA)) % (len(stacks.StackA))
 		stacks.StackA[ind] = temp[i]
 	}
 }
@@ -85,7 +84,6 @@ func (stacks *Stacks) RRB() {
 	}
 }
 
-
 // ra rotate stack a (shift up all elements of stack a by 1, the first element becomes the last one)
 func (stacks *Stacks) RA() {
 	temp := make([]int, len(stacks.StackA))
@@ -95,7 +93,6 @@ func (stacks *Stacks) RA() {
 		stacks.StackA[ind] = temp[i]
 	}
 }
-
 
 // rb rotate stack b:
 func (stacks *Stacks) RB() {
@@ -109,16 +106,37 @@ func (stacks *Stacks) RB() {
 
 // rrr execute rra and rrb:
 func (stacks *Stacks) RRR() {
-	stacks.RRB()
 	stacks.RRA()
+	stacks.RRB()
 }
 
 // Sorting application:
 func (stacks *Stacks) Sort() {
-	stacks.PB()
-	stacks.PB()
-	stacks.PB()
-	stacks.PB()
-	stacks.PB()
-	stacks.PB()
+	Min, Max := stacks.StackA[0], stacks.StackA[0]
+	index := 0
+	for i := 0; i < len(stacks.StackA); i++ {
+		if stacks.StackA[i] < Min {
+			Min = stacks.StackA[i]
+		} else if stacks.StackA[i] > Max {
+			Max = stacks.StackA[i]
+		}
+	}
+	fmt.Printf("The Max is :%d and min is %d\n", Max, Min)
+	Range := Max - Min + 1
+	Track := make([]int, Range)
+	for j := 0; j < len(stacks.StackA); j++ {
+		Track[(stacks.StackA[j]-Min)]++
+	}
+	Temp := make([]int, len(stacks.StackA))
+	for x := Range - 1; x >= 0; x-- {
+		if Track[x] > 1 {
+			return 
+		}
+		if Track[x] != 0{
+			Temp[index] = x + Min
+			index++
+		}
+	}	
+	fmt.Println(Track)
+	fmt.Println(Temp)
 }
