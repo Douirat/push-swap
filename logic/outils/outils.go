@@ -1,13 +1,15 @@
 package outils
 
 import (
+	// "fmt"
 	"strconv"
 	"strings"
+
 	p "github.com/Douirat/push-swap/logic/push-swap"
 )
 
 // Split the input argument into a slice of strings:
-func SplitInput(stack *p.Stacks, input string)  {
+func SplitInput(stacks *p.Stacks, input string)  {
 	slc := strings.Split(input, " ")
 	if len(slc) == 0 {
 		return
@@ -17,6 +19,6 @@ func SplitInput(stack *p.Stacks, input string)  {
 		if err != nil {
 			return
 		}
-		stack.StackA = append(stack.StackA, dig)
+		stacks.Insert(dig)
 	}
 }
