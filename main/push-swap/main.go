@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"github.com/Douirat/push-swap/logic/outils"
 	"github.com/Douirat/push-swap/logic/push-swap"
+	"os"
 )
 
 func main() {
@@ -15,8 +15,7 @@ func main() {
 		return
 	}
 	outils.SplitInput(stacks, args[0])
-	stacks.HeadStackkB = &pushswap.Stack{}
 	stacks.Sort()
-	stacks.Display()
-	stacks.PrintStack()
+	stacks.DisplayStackA()
+	stacks.DisplayOperations()
 }

@@ -18,6 +18,6 @@ func SplitInput(stacks *pushswap.Stacks, input string) {
 		if err != nil {
 			return
 		}
-		stacks.Initialize(dig)
+		stacks.InsertIntoA(dig)
 	}
 }
