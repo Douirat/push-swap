@@ -13,11 +13,13 @@ type Stacks struct {
 	HeadStackA *Node
 	HeadStackB *Node
 	Operations []string
+	Size       int
 }
 
 // Instantiate a new stacks:
 func Init() *Stacks {
 	stacks := new(Stacks)
+	stacks.Size = 0
 	return stacks
 }
 
@@ -37,12 +39,14 @@ func (stacks *Stacks) InsertIntoA(value int) {
 		node.Previous = node
 		node.Next = node
 		stacks.HeadStackA = node
+		stacks.Size++
 	} else {
 		node.Previous = stacks.HeadStackA
 		node.Next = node.Previous.Next
 		stacks.HeadStackA.Next = node
 		node.Next.Previous = node
 		stacks.HeadStackA = node
+		stacks.Size++
 	}
 }
 
@@ -104,7 +108,7 @@ func (stacks *Stacks) IsSorted() bool {
 	Temp := stacks.HeadStackA
 	for {
 		if Temp.Previous == stacks.HeadStackA {
-			return true
+			return Temp.Value >= Temp.Next.Value
 		}
 		if Temp.Value > Temp.Previous.Value {
 			return false
@@ -215,7 +219,11 @@ func (stacks *Stacks) ReverseRotateAandB() {
 func (stacks *Stacks) ExtractMin() int {
 	Min := stacks.HeadStackA.Value
 	Temp := stacks.HeadStackA
-	for Temp.Previous != stacks.HeadStackA {
+	if Temp.Previous.Value < Temp.Value {
+		Min = Temp.Previous.Value
+	}
+	Temp = Temp.Previous
+	for Temp != stacks.HeadStackA {
 		if Temp.Value < Min {
 			Min = Temp.Value
 		}
@@ -226,34 +234,57 @@ func (stacks *Stacks) ExtractMin() int {
 
 // The sorter function:
 func (stacks *Stacks) Sort() {
-	if stacks.HeadStackA == nil || stacks.IsSorted(){
+	if stacks.HeadStackA == nil || stacks.IsSorted() {
 		return
 	}
-		if stacks.HeadStackA.Previous != nil && stacks.HeadStackA.Previous.Value == stacks.ExtractMin() {
-			stacks.SwapA()
-			stacks.Operations = append(stacks.Operations, "sa")
-		} else if stacks.HeadStackA.Value == stacks.ExtractMin() {
+	for stacks.Size > 3 {
+		if stacks.HeadStackA.Value == stacks.ExtractMin() {
 			stacks.PushAtoB()
+			stacks.Size--
 			stacks.Operations = append(stacks.Operations, "pb")
-		} else if stacks.HeadStackA.Next.Value == stacks.ExtractMin() {
-			stacks.ReverseRotateA()
-			stacks.Operations = append(stacks.Operations, "rra")
+			continue
+		}
+		if stacks.HeadStackA.Previous.Value == stacks.ExtractMin() {
+			stacks.SwapA()
+			stacks.PushAtoB()
+			stacks.Size--
+			stacks.Operations = append(stacks.Operations, "sa")
+			stacks.Operations = append(stacks.Operations, "pb")
 		} else {
 			stacks.RotateStackA()
 			stacks.Operations = append(stacks.Operations, "ra")
 		}
-		stacks.Sort()
-		if stacks.HeadStackB != nil {
-			stacks.PushBtoA()
-			stacks.Operations = append(stacks.Operations, "pa")
+	}
+	if !stacks.IsSorted() {
+		switch {
+		case (stacks.HeadStackA.Value == stacks.ExtractMin() && stacks.HeadStackA.Previous.Value > stacks.HeadStackA.Next.Value):
+			stacks.SwapA()
+			stacks.RotateStackA()
+			stacks.Operations = append(stacks.Operations, "sa")
+			stacks.Operations = append(stacks.Operations, "ra")
+		case (stacks.HeadStackA.Previous.Value == stacks.ExtractMin() && stacks.HeadStackA.Next.Value > stacks.HeadStackA.Value):
+			stacks.SwapA()
+			stacks.Operations = append(stacks.Operations, "sa")
+		case (stacks.HeadStackA.Next.Value == stacks.ExtractMin() && stacks.HeadStackA.Previous.Value < stacks.HeadStackA.Value):
+			stacks.SwapA()
+			stacks.ReverseRotateA()
+			stacks.Operations = append(stacks.Operations, "sa")
+			stacks.Operations = append(stacks.Operations, "rra")
+
+		case (stacks.HeadStackA.Previous.Value == stacks.ExtractMin() && stacks.HeadStackA.Next.Value < stacks.HeadStackA.Value):
+			stacks.RotateStackA()
+			stacks.Operations = append(stacks.Operations, "ra")
 		}
 	}
-
-	// Display operations:
-	func  (stacks *Stacks) DisplayOperations() {
-		for i:=0; i<len(stacks.Operations); i++ {
-			fmt.Println(stacks.Operations[i])
-		}
+	for stacks.HeadStackB != nil {
+		stacks.PushBtoA()
+		stacks.Operations = append(stacks.Operations, "pa")
 	}
-	
+}
 
+// Display operations:
+func (stacks *Stacks) DisplayOperations() {
+	for i := 0; i < len(stacks.Operations); i++ {
+		fmt.Println(stacks.Operations[i])
+	}
+}

@@ -17,5 +17,6 @@ func main() {
 	outils.SplitInput(stacks, args[0])
 	stacks.Sort()
 	stacks.DisplayStackA()
+	stacks.DisplayStackB()
 	stacks.DisplayOperations()
 }
