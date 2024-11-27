@@ -14,9 +14,14 @@ func main() {
 		fmt.Println("Not enough arguments!")
 		return
 	}
-	outils.SplitInput(stacks, args[0])
+	fmt.Println(args)
+	if err := outils.SplitInput(stacks, args[0]); err != nil {
+		fmt.Println("Error")
+		return
+	}
 	stacks.Sort()
 	stacks.DisplayStackA()
 	stacks.DisplayStackB()
 	stacks.DisplayOperations()
+	
 }
