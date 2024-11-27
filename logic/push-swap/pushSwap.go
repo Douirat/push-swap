@@ -232,7 +232,7 @@ func (stacks *Stacks) ExtractMin() int {
 	return Min
 }
 
-// The sorter function:
+// The sorter function: ./checker "0 one 2 3"
 func (stacks *Stacks) Sort() {
 	if stacks.HeadStackA == nil || stacks.IsSorted() {
 		return

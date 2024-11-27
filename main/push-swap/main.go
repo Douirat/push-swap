@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/Douirat/push-swap/logic/outils"
+	"github.com/Douirat/push-swap/logic/utils"
 	"github.com/Douirat/push-swap/logic/push-swap"
 	"os"
 )
@@ -15,7 +15,7 @@ func main() {
 		return
 	}
 	fmt.Println(args)
-	if err := outils.SplitInput(stacks, args[0]); err != nil {
+	if err := utils.SplitInput(stacks, args[0]); err != nil {
 		fmt.Println("Error")
 		return
 	}
