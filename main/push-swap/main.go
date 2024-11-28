@@ -20,4 +20,5 @@ func main() {
 	}
 	stacks.Sort()
 	stacks.DisplayOperations()
+	stacks.DisplayStackA()
 }

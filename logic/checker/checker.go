@@ -1,7 +1,6 @@
 package checker
 
 import (
-
 	pushswap "github.com/Douirat/push-swap/logic/push-swap"
 )
 

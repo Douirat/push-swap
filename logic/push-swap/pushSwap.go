@@ -255,30 +255,41 @@ func (stacks *Stacks) Sort() {
 			stacks.Operations = append(stacks.Operations, "ra")
 		}
 	}
+	stacks.DisplayStackA()
+	stacks.DisplayStackB()
+	fmt.Printf("The header of the stack is: %d\n", stacks.HeadStackA.Value)
 	if !stacks.IsSorted() {
 		switch {
+				// case (stacks.HeadStackA.Previous.Value == stacks.ExtractMin() && stacks.HeadStackA.Next.Value < stacks.HeadStackA.Value):
+			// 	stacks.RotateStackA()
+			// 	stacks.Operations = append(stacks.Operations, "ra")
+		case (stacks.HeadStackA.Next.Value == stacks.ExtractMin() && stacks.HeadStackA.Previous.Value > stacks.HeadStackA.Next.Value):
+			stacks.ReverseRotateA()
+			stacks.Operations = append(stacks.Operations, "rra")
 		case (stacks.HeadStackA.Value == stacks.ExtractMin() && stacks.HeadStackA.Previous.Value > stacks.HeadStackA.Next.Value):
 			stacks.SwapA()
 			stacks.RotateStackA()
 			stacks.Operations = append(stacks.Operations, "sa")
 			stacks.Operations = append(stacks.Operations, "ra")
+		case (stacks.HeadStackA.Previous.Value == stacks.ExtractMin() && stacks.HeadStackA.Next.Value < stacks.HeadStackA.Value):
+			stacks.ReverseRotateA()
+			stacks.ReverseRotateA()
+			stacks.Operations = append(stacks.Operations, "rra")
+			stacks.Operations = append(stacks.Operations, "rra")
 		case (stacks.HeadStackA.Previous.Value == stacks.ExtractMin() && stacks.HeadStackA.Next.Value > stacks.HeadStackA.Value):
 			stacks.SwapA()
-			stacks.Operations = append(stacks.Operations, "sa")
-		case (stacks.HeadStackA.Next.Value == stacks.ExtractMin() && stacks.HeadStackA.Previous.Value < stacks.HeadStackA.Value):
-			stacks.SwapA()
-			stacks.ReverseRotateA()
-			stacks.Operations = append(stacks.Operations, "sa")
-			stacks.Operations = append(stacks.Operations, "rra")
-
-		case (stacks.HeadStackA.Previous.Value == stacks.ExtractMin() && stacks.HeadStackA.Next.Value < stacks.HeadStackA.Value):
-			stacks.RotateStackA()
-			stacks.Operations = append(stacks.Operations, "ra")
+				stacks.Operations = append(stacks.Operations, "sa")
 		}
 	}
+// 1, 4, 9 +
+// 1, 9, 4 +
+// 4, 1, 9 +
+// 4, 9, 1 +
+// 9, 1, 4 +
+// 9, 4, 1
 	for stacks.HeadStackB != nil {
 		stacks.PushBtoA()
-		stacks.Operations = append(stacks.Operations, "pa")
+		stacks.Operations = append(stacks.Operations, "sa")
 	}
 }
 
@@ -288,3 +299,5 @@ func (stacks *Stacks) DisplayOperations() {
 		fmt.Println(stacks.Operations[i])
 	}
 }
+
+// ./push-swap "55 78 12 3 14 8 9 5 2 33 331"
