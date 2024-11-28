@@ -1,14 +1,12 @@
 package checker
 
 import (
-	"fmt"
 
 	pushswap "github.com/Douirat/push-swap/logic/push-swap"
 )
 
 // Create a checker function:
 func Check(stacks *pushswap.Stacks, input []string) bool {
-	fmt.Println(stacks.HeadStackA)
 	stacks.Operations = input
 	if len(stacks.Operations) == 0 {
 		return false
@@ -42,8 +40,5 @@ func Check(stacks *pushswap.Stacks, input []string) bool {
 			return false
 		}
 	}
-
-	stacks.DisplayStackA()
-	stacks.DisplayOperations()
 	return stacks.IsSorted()
 }

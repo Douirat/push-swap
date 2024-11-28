@@ -11,17 +11,13 @@ func main() {
 	stacks := pushswap.Init()
 	args := os.Args[1:]
 	if len(args) == 0 {
-		fmt.Println("Not enough arguments!")
+		fmt.Println()
 		return
 	}
-	fmt.Println(args)
 	if err := utils.SplitInput(stacks, args[0]); err != nil {
 		fmt.Println("Error")
 		return
 	}
 	stacks.Sort()
-	stacks.DisplayStackA()
-	stacks.DisplayStackB()
 	stacks.DisplayOperations()
-	
 }

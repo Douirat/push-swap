@@ -35,13 +35,11 @@ func main() {
 
 		scanner := bufio.NewScanner(os.Stdin)
 		Instructions := []string{}
-		fmt.Println("START")
 		for scanner.Scan() {
 			if scanner.Text() != "" {
 				Instructions = append(Instructions, scanner.Text())
 			}
 		}
-		fmt.Println("END")
 		if err := scanner.Err(); err != nil {
 			fmt.Fprintln(os.Stderr, "Error reading stdin:", err)
 		}
@@ -51,7 +49,6 @@ func main() {
 		} else {
 			stacks.Operations = Instructions
 		}
-		fmt.Printf("the stack is: %s\n", stacks.Operations)
 		isSorted := checker.Check(stacks, Instructions)
 		if isSorted {
 			fmt.Println("OK")
