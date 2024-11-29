@@ -10,7 +10,7 @@ import (
 func main() {
 	stacks := pushswap.Init()
 	args := os.Args[1:]
-	if len(args) == 0 {
+	if len(args) != 1 {
 		fmt.Println()
 		return
 	}
@@ -20,5 +20,4 @@ func main() {
 	}
 	stacks.Sort()
 	stacks.DisplayOperations()
-	stacks.DisplayStackA()
 }
