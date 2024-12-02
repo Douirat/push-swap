@@ -11,7 +11,6 @@ func main() {
 	stacks := pushswap.Init()
 	args := os.Args[1:]
 	if len(args) != 1 {
-		fmt.Println()
 		return
 	}
 	if err := utils.SplitInput(stacks, args[0]); err != nil {
